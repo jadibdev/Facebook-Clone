@@ -1,4 +1,4 @@
-## This is a Facebook Clone built with ReactJS and Google Firebase, the build is not ascociated with Facebook in any way and is entirely meant for learning purposes
+## This is a Facebook Clone built with ReactJS and Google Firebase, the build is not ascociated with Facebook in any way and is entirely meant for learning purposes.
 
 ## Available Scripts
 
