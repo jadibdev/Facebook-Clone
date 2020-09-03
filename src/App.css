@@ -3,10 +3,10 @@
 }
 
 .app {
-  background-color: #f1f2f5;
-  height: 100vh;
+  background-color: #d8d8d8;
 }
 
 .app__body {
+  background-color: #d8d8d8;
   display: flex;
 }
