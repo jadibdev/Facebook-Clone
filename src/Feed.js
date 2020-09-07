@@ -3,28 +3,35 @@ import StoryReel from "./StoryReel";
 import "./Feed.css";
 import MessageSender from "./MessageSender";
 import Post from "./Post";
+import db from "./firebase";
+import { useState, useEffect } from "react";
 
 const Feed = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPosts(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+      );
+  }, []);
+
   return (
     <div className="feed">
       <StoryReel />
       <MessageSender />
 
-      <Post
-        profilePic="https://media-exp1.licdn.com/dms/image/C4D03AQGqQnBCln51zg/profile-displayphoto-shrink_200_200/0?e=1603324800&v=beta&t=gP-q8p1HnGkNTPBWAU6JFm0JqwlzH_8kmDJP8-jofeM"
-        message="it works!!!"
-        timestamp="This is a timestamp"
-        username="m_jadib"
-        image="https://s3.amazonaws.com/startupcollective-com/wp-content/uploads/Code1-675x320.jpg"
-      />
-
-      <Post
-        profilePic="https://media-exp1.licdn.com/dms/image/C4D03AQGqQnBCln51zg/profile-displayphoto-shrink_200_200/0?e=1603324800&v=beta&t=gP-q8p1HnGkNTPBWAU6JFm0JqwlzH_8kmDJP8-jofeM"
-        message="it works!!!"
-        timestamp="This is a timestamp"
-        username="m_jadib"
-      />
-      <Post />
+      {posts.map((post) => (
+        <Post
+          key={post.data.id}
+          profilePic={post.data.profilePic}
+          message={post.data.message}
+          timestamp={post.data.timestamp}
+          username={post.data.username}
+          image={post.data.image}
+        />
+      ))}
     </div>
   );
 };
